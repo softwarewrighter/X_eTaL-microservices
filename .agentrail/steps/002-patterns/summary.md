@@ -1,0 +1,1 @@
+docs/patterns.md (88-row coverage matrix with generated, gate-checked counts), docs/architecture.md (planes, levels, transaction model, failure semantics), seven interface asks in docs/xetal-FBP-asks.md.
