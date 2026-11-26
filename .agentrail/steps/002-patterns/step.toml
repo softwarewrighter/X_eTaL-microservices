@@ -1,6 +1,6 @@
 number = 2
 slug = "patterns"
-status = "pending"
+status = "in-progress"
 description = "Write docs/patterns.md, the pattern coverage matrix (plan M9): every pattern ..."
 role = "production"
 context_files = []

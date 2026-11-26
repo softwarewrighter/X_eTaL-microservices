@@ -33,6 +33,13 @@ New. The plan, the architecture decisions and the roadmap are in
 [`docs/research.txt`](docs/research.txt) with its figures in
 [`docs/research-figures.md`](docs/research-figures.md).
 
+- [`docs/architecture.md`](docs/architecture.md) -- the four planes,
+  components and services, the transaction envelope, failure outcomes
+  and the three kinds of rollback
+- [`docs/patterns.md`](docs/patterns.md) -- every pattern covered or
+  planned (Richardson's catalog, Enterprise Integration Patterns,
+  progressive deployment, what comes from FBP), and its status
+
 ## Libraries
 
 None yet; planned: Topology, Balance, Rollout, Envelope, Health

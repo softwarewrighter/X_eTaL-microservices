@@ -28,6 +28,8 @@ if [ -n "$xfiles" ] && grep -n -E '\(([0-9]+ c_at )+[0-9]+\)' $xfiles; then
 fi
 scripts/py scripts/check-spelling.py --self-test
 scripts/py scripts/check-spelling.py
+# The pattern coverage counts agree with the rows of docs/patterns.md.
+scripts/py scripts/patterns.py --check
 # ASCII-only markdown: every .md tracked or new, but CLAUDE.md (AGENTS.md
 # is its link; the agentrail briefing it holds is not ASCII) and the saga's.
 md=()

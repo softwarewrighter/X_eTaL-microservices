@@ -69,3 +69,7 @@ gate:
 # Show the agentrail saga state
 status:
     agentrail status
+
+# Rewrite docs/patterns.md's counts from its rows (the gate checks they agree)
+patterns:
+    scripts/py scripts/patterns.py --write
