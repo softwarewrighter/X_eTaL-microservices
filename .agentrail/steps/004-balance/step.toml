@@ -1,0 +1,9 @@
+number = 4
+slug = "balance"
+status = "pending"
+description = "libs/Balance (alias lb:): instance selection over an instance table (matrix o..."
+role = "production"
+context_files = []
+created_at = "2026-11-25T16:19:32"
+task_type = "library"
+commits = []

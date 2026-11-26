@@ -1,0 +1,9 @@
+number = 1
+slug = "setup"
+status = "in-progress"
+description = "Scaffold the repository after its siblings (X_eTaL-manifolds, X_eTaL-games): ..."
+role = "production"
+context_files = []
+created_at = "2026-11-25T16:19:32"
+task_type = "scaffold"
+commits = []

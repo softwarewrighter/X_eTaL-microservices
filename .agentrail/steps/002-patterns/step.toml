@@ -1,0 +1,9 @@
+number = 2
+slug = "patterns"
+status = "pending"
+description = "Write docs/patterns.md, the pattern coverage matrix (plan M9): every pattern ..."
+role = "production"
+context_files = []
+created_at = "2026-11-25T16:19:32"
+task_type = "docs"
+commits = []

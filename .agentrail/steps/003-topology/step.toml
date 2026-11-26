@@ -1,0 +1,9 @@
+number = 3
+slug = "topology"
+status = "pending"
+description = "libs/Topology (alias tp:), on X_eTaL-libraries' Graphs: a service graph from ..."
+role = "production"
+context_files = []
+created_at = "2026-11-25T16:19:32"
+task_type = "library"
+commits = []

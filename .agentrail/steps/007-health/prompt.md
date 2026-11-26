@@ -1,0 +1,1 @@
+libs/Health (alias hl:): the five health levels (liveness, readiness, dependency, path, semantic); heartbeat generation (a known input and expected output, interleaved with domain workload at an interval); heartbeat verification (latency and correctness against expected); a health summary over a window per service and per path. Tests, types, demo, docs. Gate, commit, push.

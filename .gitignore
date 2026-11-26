@@ -1,0 +1,36 @@
+# cargo (any future web/ or tools/ workspace)
+/target/
+**/target/
+**/*.rs.bk
+
+# reg-rs: .rgt + .out/.err baselines are committed; .tdb* files are caches
+*.tdb*
+
+# agentrail raw session transcripts (large, local only)
+.agentrail/sessions/*.jsonl
+.agentrail-archive/*/sessions/*.jsonl
+
+# Claude Code local state (shared slash commands may live in .claude/commands/)
+.claude/*
+!.claude/commands/
+
+# editors and OS
+.idea/
+.vscode/
+*.swp
+*~
+.DS_Store
+
+# the X_eTaL clone and the X_eTaL-libraries clone (scripts/xetal.sh,
+# scripts/xetal-libraries.sh; XETAL_COMMIT and XETAL_LIBRARIES_COMMIT are
+# tracked), the binary's symlink, local scratch and drawn output
+/tmp/
+work/
+bin/xetal
+
+# the built site, once there is one: published as the gh-pages branch, never tracked on main
+/pages/
+
+# the scripts' Python: a uv-managed virtual environment (scripts/py makes it)
+/.venv/
+__pycache__/
