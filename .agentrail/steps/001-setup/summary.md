@@ -1,0 +1,1 @@
+Scaffolded the repository after X_eTaL-manifolds/X_eTaL-games: CLAUDE.md + AGENTS.md symlink, pins (X_eTaL 8c49bd8, X_eTaL-libraries c7e812e), scripts and justfile, gate, docs/plan.md from the research PDF (text and figures), asks files, README, CHANGES.md, the foundation saga.
