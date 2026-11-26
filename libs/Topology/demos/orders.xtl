@@ -1,0 +1,37 @@
+#!/usr/bin/env xetal
+## The research's order-processing system (its pages 6 and 8): which
+## services an outage takes down, the order to deploy in, and the
+## critical path of one order. Run with "just demo Topology orders".
+
+"tp:" u_se< "Topology"
+"g:" u_se< "Graphs"
+"t:" u_se< "Strings"
+names := "gateway" "validate" "inventory" "pricing" "join" "fulfill"
+# Services by name (docs/xetal-libraries-asks.md, L1: g_raph< writes
+# these for an undirected graph only).
+gateway := 1
+validate := 2
+inventory := 3
+pricing := 4
+join := 5
+fulfill := 6
+from := gateway c_at validate c_at validate c_at inventory c_at pricing c_at join
+to := validate c_at inventory c_at pricing c_at join c_at join c_at fulfill
+m := 6 g:a_djacency 2 6 r_eshape from c_at to
+## u:n_amed v: the names of the services where v is 1, one line.
+u:n_amed := { v -> " " t:j_oin (w_here v > 0) s_elect names }
+
+# The dependency matrix, rows sending to columns.
+m
+
+# What each outage takes down (the service and every path through it).
+"\n" t:j_oin '{ s -> (10 t:p_adRight d_isclose s s_elect names) c_at u:n_amed m tp:b_last s } m_ap r_ange 6
+
+# Deployment waves: level 0 first.
+lv := tp:l_evels m
+"\n" t:j_oin '{ k -> "wave " c_at (f_ormat k) c_at ": " c_at u:n_amed lv = k } m_ap o_ffsets 1 + 'm_ax r_/ lv
+
+# One order, with the latencies of the research's trace (page 18), in ms.
+lat := 8 12 45 30 7 68
+m tp:f_inish lat
+" -> " t:j_oin (m tp:c_ritical lat) s_elect names

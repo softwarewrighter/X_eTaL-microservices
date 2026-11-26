@@ -1,0 +1,19 @@
+0 1 0 0 0 0
+0 0 1 1 0 0
+0 0 0 0 1 0
+0 0 0 0 1 0
+0 0 0 0 0 1
+0 0 0 0 0 0
+gateway   gateway validate inventory pricing join fulfill
+validate  gateway validate inventory pricing join fulfill
+inventory gateway validate inventory join fulfill
+pricing   gateway validate pricing join fulfill
+join      gateway validate inventory pricing join fulfill
+fulfill   gateway validate inventory pricing join fulfill
+wave 0: fulfill
+wave 1: join
+wave 2: inventory pricing
+wave 3: validate
+wave 4: gateway
+8 20 65 50 72 140
+gateway -> validate -> inventory -> join -> fulfill

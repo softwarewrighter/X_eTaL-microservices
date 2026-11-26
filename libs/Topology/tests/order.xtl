@@ -1,0 +1,30 @@
+#!/usr/bin/env xetal
+# Topology, checked with Check on the research's order-processing
+# topology (docs/research-figures.md, pages 6 and 8): the gateway feeds
+# validation, which fans out to inventory and pricing, which join, then
+# fulfillment. Run with "just run-lib Topology order".
+"tp:" u_se< "Topology"
+"g:" u_se< "Graphs"
+"ch:" u_se< "Check"
+# 1 gateway, 2 validation, 3 inventory, 4 pricing, 5 join, 6 fulfillment
+m := 6 g:a_djacency 2 6 r_eshape 1 2 2 3 4 5  2 3 4 5 5 6
+page8 := 6 6 r_eshape 0 1 0 0 0 0  0 0 1 1 0 0  0 0 0 0 1 0  0 0 0 0 1 0  0 0 0 0 0 1  0 0 0 0 0 0
+c1 := "the matrix of page 8" ch:t_est page8 ch:i_s m
+c2 := "no cycle" ch:t_est ch:t_rue tp:a_cyclic? m
+c3 := "deploy fulfillment first, the gateway last" ch:t_est 4 3 2 2 1 0 ch:i_s tp:l_evels m
+c4 := "inventory down takes all but pricing" ch:t_est 1 1 1 0 1 1 ch:i_s m tp:b_last 3
+c5 := "the join's dependents" ch:t_est 1 1 1 1 0 0 ch:i_s m tp:u_pstream 5
+c6 := "validation's dependencies" ch:t_est 0 0 1 1 1 1 ch:i_s m tp:d_ownstream 2
+c7 := "two routes from the gateway to fulfillment" ch:t_est 2 ch:i_s 6 s_elect 1 s_elect tp:p_aths m
+c8 := "one route from validation to the join through each branch" ch:t_est 2 ch:i_s 5 s_elect 2 s_elect tp:p_aths m
+c9 := "the gateway reaches everything" ch:t_est (6 r_eshape 0) ch:i_s m tp:o_rphans 1
+# Latencies shaped like the trace of page 18 (milliseconds).
+lat := 8 12 45 30 7 68
+c10 := "finish times" ch:t_est 8 20 65 50 72 140 ch:i_s m tp:f_inish lat
+c11 := "the critical path goes through inventory" ch:t_est 1 2 3 5 6 ch:i_s m tp:c_ritical lat
+c12 := "a faster inventory moves it to pricing" ch:t_est 1 2 4 5 6 ch:i_s m tp:c_ritical 8 12 20 30 7 68
+# A compensation edge from fulfillment back to inventory makes a cycle.
+back := m | 6 g:a_djacency 2 1 r_eshape 6 3
+c13 := "the cycle inventory, join, fulfillment" ch:t_est 0 0 1 0 1 1 ch:i_s tp:c_ycles back
+c14 := "a cycle is not acyclic" ch:t_est 0 ch:i_s tp:a_cyclic? back
+ch:r_eport c1 ch:a_nd c2 ch:a_nd c3 ch:a_nd c4 ch:a_nd c5 ch:a_nd c6 ch:a_nd c7 ch:a_nd c8 ch:a_nd c9 ch:a_nd c10 ch:a_nd c11 ch:a_nd c12 ch:a_nd c13 ch:a_nd c14

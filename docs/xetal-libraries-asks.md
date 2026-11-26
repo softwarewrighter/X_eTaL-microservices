@@ -11,4 +11,4 @@ workaround in use.
 
 | Status | Kind | Ask | Needed by | Workaround |
 | ------ | ---- | --- | --------- | ---------- |
-| - | - | none yet | - | - |
+| open | feature | L1. A directed `g_raph<` in Graphs: at c7e812e `"town" g:g_raph< "a-b-c"` defines a variable per station and an adjacency matrix with every edge both ways. A service topology is directed (who calls whom), so the same macro with directed paths (for instance `"order" g:d_igraph< "gateway>validate>inventory>join, validate>pricing>join"`) would name the services and build the matrix in one statement. General: any directed graph written by names wants it | Topology's demo, every topology demo to come | one variable per service and the edges joined with `c_at` (`libs/Topology/demos/orders.xtl`) |

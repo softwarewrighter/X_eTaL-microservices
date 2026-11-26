@@ -1,0 +1,9 @@
+error[panic]: no deployment order: services 2 3 are on a cycle
+  --> ../src/Topology.xtl:85:18
+   |
+85 |   0 < '+ r_/ c ? @ p_anic< "no deployment order: services {f_ormat w_here c > 0} are on a cycle"
+   |                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  ::: panic-cycle.xtl:6:1
+   |
+ 6 | tp:l_evels 4 g:a_djacency 2 4 r_eshape 1 2 3 4  2 3 2 1
+   | ------------------------------------------------------- called from the program here

@@ -1,0 +1,15 @@
+ok: the matrix of page 8
+ok: no cycle
+ok: deploy fulfillment first, the gateway last
+ok: inventory down takes all but pricing
+ok: the join's dependents
+ok: validation's dependencies
+ok: two routes from the gateway to fulfillment
+ok: one route from validation to the join through each branch
+ok: the gateway reaches everything
+ok: finish times
+ok: the critical path goes through inventory
+ok: a faster inventory moves it to pricing
+ok: the cycle inventory, join, fulfillment
+ok: a cycle is not acyclic
+14 checks, all passed

@@ -1,0 +1,6 @@
+#!/usr/bin/env xetal
+# Topology: a topology with a cycle has no deployment order, and
+# l_evels says which services are on it. Run with "just run-lib Topology panic-cycle".
+"tp:" u_se< "Topology"
+"g:" u_se< "Graphs"
+tp:l_evels 4 g:a_djacency 2 4 r_eshape 1 2 3 4  2 3 2 1

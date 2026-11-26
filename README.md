@@ -42,8 +42,13 @@ New. The plan, the architecture decisions and the roadmap are in
 
 ## Libraries
 
-None yet; planned: Topology, Balance, Rollout, Envelope, Health
-([`docs/plan.md`](docs/plan.md), "Libraries").
+| Library | Alias | What |
+| ------- | ----- | ---- |
+| [Topology](libs/Topology/) | `tp:` | a service topology as data: dependency cycles, an outage's blast radius, deployment order, orphans, redundant routes, pipeline finish times and the critical path |
+
+Planned: Balance, Rollout, Envelope, Health, then Resilience,
+Messaging, Sagas, Events, Trace ([`docs/plan.md`](docs/plan.md),
+"Libraries").
 
 ## Build and test
 

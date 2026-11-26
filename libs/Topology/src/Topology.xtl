@@ -1,0 +1,153 @@
+## Topology: a service topology as data -- which services are on a
+## dependency cycle, what a failed service takes with it (upstream,
+## downstream, blast radius), the order to deploy in, services no entry
+## reaches, how many routes join two services, and when each finishes
+## in a pipeline with its critical path.
+## Import it with an alias of your choice: "tp:" u_se< "Topology".
+## Put libs/Topology/src on XETAL_PATH ("just path"); the reference is libs/Topology/docs.
+## Names with l: are exported; those under h: are private to this file.
+##
+## A topology of n services, numbered 1 to n, is an n by n matrix m:
+## item i j is 1 when service i sends to (calls, or feeds) service j,
+## as X_eTaL-libraries' Graphs builds it (n g:a_djacency edges). The
+## functions here are what a service topology asks of such a graph;
+## degrees, distances and components are Graphs' own (g:o_utDegree,
+## g:i_nDegree, g:s_hortest, g:c_omponents).
+
+"g:" u_se< "Graphs"
+
+### Helpers
+
+## The n by n identity, as 0 and 1.
+h:i_d := { n -> 0 + (r_ange n) '= t_able r_ange n }
+
+## Reachability with each service counted as reaching itself.
+h:r_eachSelf := { m -> 0 + (g:r_each m) | 0 < h:i_d t_ally m }
+
+### Cycles
+
+## c_ycles m: 1 for each service on a dependency cycle (one that can
+## reach itself by one or more edges), else 0.
+## >> "tp:" u_se< "Topology"
+## >> tp:c_ycles 4 4 r_eshape 0 1 0 0  0 0 1 0  0 1 0 1  0 0 0 0
+## 0 1 1 0
+l:c_ycles := { m -> 0 + '| r_/_2 (g:r_each m) & 0 < h:i_d t_ally m }
+
+## a_cyclic? m: 1 when no service is on a cycle.
+## >> "tp:" u_se< "Topology"
+## >> tp:a_cyclic? 3 3 r_eshape 0 1 0  0 0 1  0 0 0
+## 1
+l:a_cyclic? := { m -> 0 = '+ r_/ l:c_ycles m }
+
+### Failure propagation
+
+## m u_pstream s: 1 for each service that depends on service s, by one
+## or more edges (its callers, their callers, ...); s itself is 0
+## unless it is on a cycle.
+## >> "tp:" u_se< "Topology"
+## >> (3 3 r_eshape 0 1 0  0 0 1  0 0 0) tp:u_pstream 3
+## 1 1 0
+l:u_pstream := { m s -> 0 + s s_elect o_\ g:r_each m }
+
+## m d_ownstream s: 1 for each service that s depends on, by one or
+## more edges (what it calls or feeds, and so on).
+## >> "tp:" u_se< "Topology"
+## >> (3 3 r_eshape 0 1 0  0 0 1  0 0 0) tp:d_ownstream 1
+## 0 1 1
+l:d_ownstream := { m s -> 0 + s s_elect g:r_each m }
+
+## m b_last s: the blast radius of service s failing: 1 for s and every
+## service on a path through it, upstream or downstream.
+## >> "tp:" u_se< "Topology"
+## >> (4 4 r_eshape 0 1 0 0  0 0 1 1  0 0 0 0  0 0 0 0) tp:b_last 3
+## 1 1 1 0
+l:b_last := { m s ->
+  me := 0 + (r_ange t_ally m) = s
+  0 + me | (m l:u_pstream s) | m l:d_ownstream s
+}
+
+### Deployment order
+
+## One more round of levels: each service one above the highest of the
+## services it depends on, 0 when it depends on none.
+h:r_aise := { m v -> 'm_ax r_/_2 m * (s_hape m) r_eshape v + 1 }
+
+## l_evels m: each service's deployment level: 0 for a service that
+## depends on nothing, else one more than the highest level among those
+## it depends on. Deploying level 0 first, then 1, and so on, never
+## starts a service before what it depends on. A topology with a cycle
+## has no such order and stops with a panic naming the services on it.
+## >> "tp:" u_se< "Topology"
+## >> tp:l_evels 4 4 r_eshape 0 1 1 0  0 0 0 1  0 0 0 1  0 0 0 0
+## 2 1 1 0
+l:l_evels := { m ->
+  c := l:c_ycles m
+  0 < '+ r_/ c ? @ p_anic< "no deployment order: services {f_ormat w_here c > 0} are on a cycle"
+  n := t_ally m
+  n '{ v -> m h:r_aise v } p_ower n r_eshape 0
+}
+
+### Reach from entry points
+
+## m o_rphans entries: 1 for each service that is not an entry and that
+## no entry reaches (dead code, or a missing edge).
+## >> "tp:" u_se< "Topology"
+## >> (4 4 r_eshape 0 1 0 0  0 0 1 0  0 0 0 0  0 0 0 0) tp:o_rphans 1
+## 0 0 0 1
+l:o_rphans := { m entries ->
+  n := t_ally m
+  from := (r_ange n) m_ember? entries
+  reached := '| r_/ (from '& t_able n r_eshape 1) & h:r_eachSelf m
+  0 + n_ot reached
+}
+
+## p_aths m: item i j is the number of distinct routes from i to j (of
+## one or more edges) in an acyclic topology: 2 or more is redundancy,
+## 1 a single route. (On a cycle the count would not end: use a_cyclic?
+## first.)
+## >> "tp:" u_se< "Topology"
+## >> tp:p_aths 4 4 r_eshape 0 1 1 0  0 0 0 1  0 0 0 1  0 0 0 0
+## 0 1 1 2
+## 0 0 0 1
+## 0 0 0 1
+## 0 0 0 0
+l:p_aths := { m ->
+  n := t_ally m
+  (_, total) := n '{ (k, t) -> (k '+ '* i_nner m, t + k) } p_ower (m, m * 0)
+  total
+}
+
+### Timing
+
+## m f_inish lat: when each service of a pipeline finishes, from time 0
+## at the entries: a service starts when the last of the services that
+## feed it has finished (a join waits for all its inputs, a fan-out runs
+## its branches side by side) and takes its own latency lat. Acyclic
+## topologies only.
+## >> "tp:" u_se< "Topology"
+## >> (3 3 r_eshape 0 1 1  0 0 0  0 0 0) tp:f_inish 10 30 5
+## 10 40 15
+l:f_inish := { m lat ->
+  n := t_ally m
+  n '{ f -> lat + 'm_ax r_/ m * o_\ (s_hape m) r_eshape f } p_ower lat * 0
+}
+
+## The critical path back from service s: the feeder that finished last,
+## then its feeder, and so on to an entry.
+h:b_ack := { (m, f, s) ->
+  feeders := w_here 0 < s s_elect o_\ m
+  0 = t_ally feeders ? s
+  last := f_irst (g_rade n_eg feeders s_elect f) s_elect feeders
+  (h:b_ack (m, f, last)) c_at s
+}
+
+## m c_ritical lat: the critical path, the services (entry first) whose
+## latencies add up to the time the last service finishes; shortening
+## any service off it does not shorten the whole.
+## >> "tp:" u_se< "Topology"
+## >> (3 3 r_eshape 0 1 1  0 0 0  0 0 0) tp:c_ritical 10 30 5
+## 1 2
+l:c_ritical := { m lat ->
+  f := m l:f_inish lat
+  h:b_ack (m, f, f_irst g_rade n_eg f)
+}
