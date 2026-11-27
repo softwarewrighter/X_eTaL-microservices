@@ -58,7 +58,10 @@ X_eTaL-libraries and X_eTaL; none of them ever depends on this one.
 A pin moves at a saga start or when an ask has landed, never mid-step,
 one pin at a time, in its own commit after the gate. The first pins:
 X_eTaL `8c49bd8` (the commit X_eTaL-libraries is known good with) and
-X_eTaL-libraries `c7e812e` (its head, 2026-11-24).
+X_eTaL-libraries `c7e812e` (its head, 2026-11-24). X_eTaL moved to
+`ba6406b` on 2026-11-26, between steps 3 and 4, ahead of the commit
+X_eTaL-libraries pins (`8c49bd8`): Graphs and Check pass the gate there,
+and the only change here was simpler inferred types (X_eTaL's T10).
 
 **M2. The four planes.** Specification (contracts, topology, policies,
 deployment), control (discovery, routing, deployment, health), data

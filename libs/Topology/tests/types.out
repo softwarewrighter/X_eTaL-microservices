@@ -1,10 +1,10 @@
-l:c_ycles : (Num a, Num b, Truthy b) => a -> b
+l:c_ycles : Num a => a -> Int
 l:a_cyclic? : (Num a, Truthy b) => a -> b
-l:u_pstream : (Num a, Num b, Truthy b) => a -> Int -> b
-l:d_ownstream : (Num a, Num b, Truthy b) => a -> Int -> b
-l:b_last : (Num a, Num b, Truthy b) => a -> Int -> b
+l:u_pstream : Num a => a -> Int -> Int
+l:d_ownstream : Num a => a -> Int -> Int
+l:b_last : Num a => a -> Int -> Int
 l:l_evels : Num a => a -> a
-l:o_rphans : (Num a, Num b, Truthy b) => a -> Int -> b
+l:o_rphans : Num a => a -> Int -> Int
 l:p_aths : Num a => a -> a
 l:f_inish : Num a => a -> a -> a
 l:c_ritical : Num a => a -> a -> Int
