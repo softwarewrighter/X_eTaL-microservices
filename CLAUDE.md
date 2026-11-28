@@ -396,7 +396,7 @@ Read before working:
 2. **One-way dependencies** (plan M1): this repository may depend on
    X_eTaL-FBP, X_eTaL-libraries, X_eTaL-extensions and X_eTaL; none of
    them may depend on it. Pins (`XETAL_COMMIT`,
-   `XETAL_LIBRARIES_COMMIT`, later `XETAL_FBP_COMMIT`) move one at a
+   `XETAL_LIBRARIES_COMMIT`, `XETAL_FBP_COMMIT`) move one at a
    time, at a saga start or when an ask has landed, never mid-step, in
    their own commit after `just gate`.
 3. **Each function where it belongs** (plan M3): microservice-specific

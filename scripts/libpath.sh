@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 # The library search path, XETAL_PATH (docs/plan.md, M1, M3): this
-# repository's libs/*/src, then every library of X_eTaL-libraries at
-# this repository's pin (work/xetal-libraries). PREFIX is put before each
-# path, which is otherwise relative to the repository's root; none gives
-# absolute paths. (X_eTaL-FBP's libraries join here once it has any and
-# XETAL_FBP_COMMIT pins it: docs/xetal-FBP-asks.md.)
+# repository's libs/*/src, then every library of X_eTaL-FBP at
+# XETAL_FBP_COMMIT (work/xetal-fbp), then every library of
+# X_eTaL-libraries at XETAL_LIBRARIES_COMMIT (work/xetal-libraries).
+# PREFIX is put before each path, which is otherwise relative to the
+# repository's root; none gives absolute paths.
 # Adapted from X_eTaL-manifolds' scripts/libpath.sh (no X_eTaL-ML).
 #   scripts/libpath.sh [PREFIX]
 set -euo pipefail

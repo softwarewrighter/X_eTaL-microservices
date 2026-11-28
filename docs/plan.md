@@ -49,9 +49,9 @@ deploy it, monitor it, debug it, experiment with it and adapt it?
 `XETAL_COMMIT` (X_eTaL's `docs/vendoring.md`): `just xetal` clones it
 into the gitignored `work/xetal/` and links `bin/xetal`. X_eTaL-libraries
 is used at `XETAL_LIBRARIES_COMMIT`, cloned into `work/xetal-libraries/`.
-X_eTaL-FBP will be pinned the same way (`XETAL_FBP_COMMIT`,
-`work/xetal-fbp/`, already on the search path in `scripts/libpath.sh`)
-once it has a library to use; today it holds only the research. The
+X_eTaL-FBP is used at `XETAL_FBP_COMMIT`, cloned into `work/xetal-fbp/`
+(from 2026-11-27, its first library, Connections); its libraries come
+before X_eTaL-libraries' on the search path, as its README asks. The
 direction is one way: this repository depends on X_eTaL-FBP,
 X_eTaL-libraries and X_eTaL; none of them ever depends on this one.
 (The research's page 64 also allows a direct use of X_eTaL-extensions.)
@@ -62,6 +62,9 @@ X_eTaL-libraries `c7e812e` (its head, 2026-11-24). X_eTaL moved to
 `ba6406b` on 2026-11-26, between steps 3 and 4, ahead of the commit
 X_eTaL-libraries pins (`8c49bd8`): Graphs and Check pass the gate there,
 and the only change here was simpler inferred types (X_eTaL's T10).
+X_eTaL-FBP first pinned at `45af750` on 2026-11-27 (it pins X_eTaL
+`04c4c84`; Connections' test and demo outputs are the same at
+`ba6406b`).
 
 **M2. The four planes.** Specification (contracts, topology, policies,
 deployment), control (discovery, routing, deployment, health), data

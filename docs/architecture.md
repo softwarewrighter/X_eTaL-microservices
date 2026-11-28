@@ -89,8 +89,9 @@ simulated without a network.
 The component network and the deployment are separate tables. Moving
 a component across a service boundary changes the transport, the
 serialization, the delivery guarantees and the failure outcomes it
-sees; it does not change its pure computation. Until X_eTaL-FBP has a
-library to pin, programs here work at the service level only: a
+sees; it does not change its pure computation. X_eTaL-FBP's
+connections (bounded, with an overflow policy) are pinned; until it has
+networks and a scheduler, programs here work at the service level: a
 service is one step function, a call is one transaction.
 
 ## Transactions

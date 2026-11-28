@@ -11,6 +11,10 @@ reordering, `release` milestone release, `chore` agentrail bookkeeping
 (step complete, saga archive), `pin` a move of the X_eTaL,
 X_eTaL-libraries or X_eTaL-FBP pin.
 
+## 2026-11-27
+
+- `pin` X_eTaL-FBP, first pinned: `XETAL_FBP_COMMIT` `45af750` (its library Connections: bounded FIFO connections with block, drop-oldest, drop-newest and reject policies). `scripts/xetal-fbp.sh` (made from `scripts/xetal-libraries.sh`) clones it into `work/xetal-fbp`; `just xetal` gets it, `just fbp-pin` moves it, `just xetal-version` shows it; its libraries go on the search path before X_eTaL-libraries', as its README asks. `scripts/check-xetal.sh` checks the clone and that Connections reproduces page 47 (32 IPs not admitted). Connections' test and demo outputs are the same at our X_eTaL `ba6406b` as at its own pin `04c4c84`. `docs/xetal-FBP-asks.md`: the first library and the overflow policies landed (persist and reroute stay here, for Messaging and Resilience); the Packets step noted on packet metadata. `docs/plan.md` M1, `docs/architecture.md`, README and CLAUDE.md updated
+
 ## 2026-11-26
 
 - `pin` X_eTaL `8c49bd8` -> `ba6406b` (54 commits: amend, mix, n-wise reduction, the rank form, a hashed `m_ember?`, `c_heck<` and a stopping `a_ssert<`, the Never type, a range kept as a progression, comparisons in a result typed Int). Topology's values unchanged; `tests/types.out` reblessed after review: `c_ycles`, `u_pstream`, `d_ownstream`, `b_last` and `o_rphans` now infer `Int` results instead of a `Truthy b` (X_eTaL's T10). X_eTaL-libraries stays at `c7e812e` (it pins X_eTaL `8c49bd8`; its Graphs and Check pass the gate at `ba6406b`). `docs/plan.md` M1 records the move

@@ -56,16 +56,18 @@ Needs Rust (cargo), [just](https://github.com/casey/just),
 [uv](https://docs.astral.sh/uv/), reg-rs and sw-markdown-checker.
 
 ```bash
-just xetal            # clone and build X_eTaL at XETAL_COMMIT, get X_eTaL-libraries at its pin (once)
+just xetal            # clone and build X_eTaL at XETAL_COMMIT, get X_eTaL-libraries and X_eTaL-FBP at their pins (once)
 just xetal-version    # the pins
 just eval "'+ r_/ 1 2 3"
 just test             # every library's baselines
 just gate             # everything checked before a commit
 ```
 
-X_eTaL and X_eTaL-libraries are cloned into `work/` (not tracked) at
-the commits in `XETAL_COMMIT` and `XETAL_LIBRARIES_COMMIT`;
-`just xetal-pin` and `just libs-pin` move them.
+X_eTaL, X_eTaL-libraries and X_eTaL-FBP are cloned into `work/` (not
+tracked) at the commits in `XETAL_COMMIT`, `XETAL_LIBRARIES_COMMIT` and
+`XETAL_FBP_COMMIT`; `just xetal-pin`, `just libs-pin` and `just fbp-pin`
+move them. Their libraries are importable here: X_eTaL-FBP's
+Connections as `"cn:" u_se< "Connections"`, for instance.
 
 ## Related
 

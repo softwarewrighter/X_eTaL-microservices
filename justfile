@@ -7,10 +7,11 @@ set positional-arguments
 default:
     @just --list
 
-# Get and build xetal at XETAL_COMMIT (work/xetal, bin/xetal) and X_eTaL-libraries at XETAL_LIBRARIES_COMMIT (work/xetal-libraries)
+# Get and build xetal at XETAL_COMMIT (work/xetal, bin/xetal), X_eTaL-libraries at XETAL_LIBRARIES_COMMIT (work/xetal-libraries) and X_eTaL-FBP at XETAL_FBP_COMMIT (work/xetal-fbp)
 xetal:
     @scripts/xetal.sh >/dev/null
     @scripts/xetal-libraries.sh
+    @scripts/xetal-fbp.sh
 
 # Pin a newer X_eTaL: a committed ref of ../X_eTaL (default HEAD) into XETAL_COMMIT, built; then just gate and commit it alone
 xetal-pin ref="HEAD":
@@ -20,10 +21,15 @@ xetal-pin ref="HEAD":
 libs-pin ref="HEAD":
     scripts/xetal-libraries.sh --pin "$1"
 
+# Pin a newer X_eTaL-FBP: a committed ref of ../X_eTaL-FBP (default HEAD); then just gate and commit it alone
+fbp-pin ref="HEAD":
+    scripts/xetal-fbp.sh --pin "$1"
+
 # The pins and the binary's own report
 xetal-version:
     @echo "XETAL_COMMIT $(cat XETAL_COMMIT)"
     @echo "XETAL_LIBRARIES_COMMIT $(cat XETAL_LIBRARIES_COMMIT)"
+    @echo "XETAL_FBP_COMMIT $(cat XETAL_FBP_COMMIT)"
     @scripts/xt --version
 
 # Evaluate an expression with the pinned xetal, every library on XETAL_PATH: just eval "'+ r_/ 1 2 3"

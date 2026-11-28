@@ -1,14 +1,17 @@
 #!/usr/bin/env bash
 # Check the pinned toolchain (docs/plan.md, M1): the X_eTaL clone is at
 # XETAL_COMMIT and the X_eTaL-libraries clone at XETAL_LIBRARIES_COMMIT,
-# both unchanged; xetal builds, answers and reports that commit; a
-# standard library imports; X_eTaL-libraries' Check and Graphs load.
+# and the X_eTaL-FBP clone at XETAL_FBP_COMMIT, all unchanged; xetal
+# builds, answers and reports that commit; a standard library imports;
+# X_eTaL-libraries' Check and Graphs and X_eTaL-FBP's Connections load
+# and answer (Connections with the research's page-47 backpressure).
 # Adapted from X_eTaL-manifolds' scripts/check-xetal.sh.
 #   scripts/check-xetal.sh
 set -euo pipefail
 root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 xetal="$("$root/scripts/xetal.sh")"
 "$root/scripts/xetal-libraries.sh"
+"$root/scripts/xetal-fbp.sh"
 pin="$(tr -d '[:space:]' < "$root/XETAL_COMMIT")"
 [ "$(git -C "$root/work/xetal" rev-parse HEAD)" = "$pin" ] || { echo "check-xetal: work/xetal is not at $pin" >&2; exit 1; }
 [ -z "$(git -C "$root/work/xetal" status --porcelain)" ] || { echo "check-xetal: work/xetal has local changes" >&2; exit 1; }
@@ -25,5 +28,10 @@ got="$("$root/scripts/xt" eval -e '"ch:" u_se< "Check"
 got="$("$root/scripts/xt" eval -e '"g:" u_se< "Graphs"
 g:o_utDegree 3 g:a_djacency 2 2 r_eshape 1 1 2 3')"
 [ "$got" = "2 0 0" ] || fail "Graphs (X_eTaL-libraries)" "$got" "2 0 0"
+got="$("$root/scripts/xt" eval -e '"cn:" u_se< "Connections"
+(c, t) := (12, 8, 12) cn:r_un cn:n_ew (16, cn:Block)
+'"'"'+ r_/ 4 s_elect_2 t')"
+[ "$got" = "32" ] || fail "Connections (X_eTaL-FBP)" "$got" 32
 libs="$(tr -d '[:space:]' < "$root/XETAL_LIBRARIES_COMMIT")"
-echo "check-xetal: ok (X_eTaL ${pin:0:7}, X_eTaL-libraries ${libs:0:7})"
+fbp="$(tr -d '[:space:]' < "$root/XETAL_FBP_COMMIT")"
+echo "check-xetal: ok (X_eTaL ${pin:0:7}, X_eTaL-libraries ${libs:0:7}, X_eTaL-FBP ${fbp:0:7})"

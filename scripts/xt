@@ -14,6 +14,7 @@ root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 xetal="$root/work/xetal/target/release/xetal"
 [ -x "$xetal" ] || xetal="$("$root/scripts/xetal.sh")"
 [ -d "$root/work/xetal-libraries/.git" ] || "$root/scripts/xetal-libraries.sh"
+[ -d "$root/work/xetal-fbp/.git" ] || "$root/scripts/xetal-fbp.sh"
 XETAL_PATH="$("$root/scripts/py" - "$root" <<'PY'
 import os, sys
 from pathlib import Path
